@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """ Password Generator """
+import argparse
 import string
 import random
 
@@ -37,20 +38,26 @@ def generate_password(length: int=8, numbers: bool=True, symbols: bool=True) -> 
 
 
 if __name__ == "__main__":
+    length: int = 8
+    numbers: bool
+    symbols: bool
 
-    length: int = int(input("Please specify the length of your password not less than 8  "))
-    if length < 8:
-        length = int(input("Please enter a number > 8  "))
+    parser = argparse.ArgumentParser(
+            description='Tool that generates a strong random password')
 
-    numbers: str = input("Should your password contain numbers? Yes/No  ")
-    symbols: str = input("Should your password contain special characters? Yes/No  ")
+    parser.add_argument('-l', '--length', type=int, help='Password length not < 8')
+    parser.add_argument('-n', '--numbers', action='store_true', help='include numbers')
+    parser.add_argument('-s', '--symbols', action='store_true', help='include symbols')
+
+    args = parser.parse_args()
+
+    if args.length:
+        if args.length < 8:
+            print("Length must be greater than 8")
+            exit()
+        length = args.length
+    numbers = args.numbers
+    symbols = args.symbols
 
     print()
-    if numbers.upper() == "YES" and symbols.upper() == "YES":
-        print(generate_password(length, True, True))
-    elif numbers.upper() == "YES":
-        print(generate_password(length, True, False))
-    elif symbols.upper() == "YES":
-        print(generate_password(length, False, True))
-    else:
-        print(generate_password(length,False, False))
+    print(generate_password(length, numbers, symbols))
