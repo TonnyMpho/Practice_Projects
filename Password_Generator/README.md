@@ -12,7 +12,7 @@ inclusion of numbers/symbols) and generates a secure password.
 
 #### setup
 ```
-git clone  
+git clone  https://github.com/TonnyMpho/CodeClauseInternship_ProjectName/Password_Generator
 
 pip3 install -r requirements.txt
 ```
@@ -25,5 +25,5 @@ python3 password_generator_GUI.py
 
 for the command line run:
 ```
-python3 password_generator.py
+python3 password_generator.py -h
 ```
