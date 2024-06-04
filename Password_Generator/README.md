@@ -14,7 +14,7 @@ inclusion of numbers/symbols) and generates a secure password.
 ```
 git clone  https://github.com/TonnyMpho/CodeClauseInternship_ProjectName/
 
-cd CodeClauseInternship_ProjectName/password_generator/
+cd CodeClauseInternship_ProjectName/Password_Generator/
 
 pip3 install -r requirements.txt
 ```
