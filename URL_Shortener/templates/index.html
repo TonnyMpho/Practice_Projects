@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>{% block title %} Home {% endblock %}</title>
+</head>
+<body>
+    {% block content %}
+    <form action="{{ url_for('index') }}" method="post">
+        <div class="container">
+            <label for="uname"><b>URL</b></label>
+            <input type="url" placeholder="Enter URL" name="url" required>
+            <button type="submit">Shorten</button>
+        </div>
+    </form>
+    {% if urls %}
+    <ul>
+    {% for url in urls %}
+    <li> <b>URL:</b> {{ url.url }} - <b>short Url:</b> {{ url.short_url }} <b>Visits: {{url.visits}}</li>
+    {% endfor %}
+    {% endif %}
+    </ul>
+    {% endblock %}
+</body>
+</html>
