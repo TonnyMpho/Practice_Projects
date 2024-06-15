@@ -1,0 +1,35 @@
+{% extends 'index.html' %}
+{% block title %} dashboard {% endblock %}
+
+{% block content %}
+
+<nav>
+    <h4>URL Shortener</h4>
+    <div class="links">
+        <a href={{ url_for('index') }}>Home</a>
+        <a href={{ url_for('logout') }}>logout</a>
+    </div>
+</nav>
+
+<h1>Visits/Clicks Information</h1>
+{% if urls %}
+<table>
+    <tr>
+        <th>Url</th>
+        <th>short url</th>
+        <th>ip address</th>
+        <th>timestamp</th>
+    </tr>
+    {% for url in urls %}
+    {% for visit in url.visits %}
+    <tr>
+        <td>{{ visit.url.url }}</td>
+        <td>{{ visit.url.short_url }}</td>
+        <td>{{ visit.ip_address }}</td>
+        <td>{{ visit.timestamp }}</td>
+    </tr>
+    {% endfor %}
+    {% endfor %}
+</table>
+{% endif %}
+{% endblock %}

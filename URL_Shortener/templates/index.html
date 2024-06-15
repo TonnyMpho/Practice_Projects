@@ -1,27 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../static/styles/style.css">
     <title>{% block title %} Home {% endblock %}</title>
 </head>
+
 <body>
-    {% block content %}
-    <form action="{{ url_for('index') }}" method="post">
-        <div class="container">
-            <label for="uname"><b>URL</b></label>
-            <input type="url" placeholder="Enter URL" name="url" required>
-            <button type="submit">Shorten</button>
-        </div>
-    </form>
-    {% if urls %}
-    <ul>
-    {% for url in urls %}
-    <li> <b>URL:</b> {{ url.url }} - <b>short Url:</b> {{ url.short_url }} <b>Visits: {{url.visits}}</li>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <p class="info">{{ message }}</p>
     {% endfor %}
     {% endif %}
-    </ul>
-    {% endblock %}
+    {% endwith %}
+
+    {% block content %}
+
+    <nav>
+        <h4>URL Shortener</h4>
+        <div class="links">
+            <a href={{ url_for('dashboard') }}>Dashboard</a>
+            <a href={{ url_for('logout') }}>logout</a>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <h1>Url Shortener</h1>
+        <div class="shortener-form">
+            <form action="{{ url_for('index') }}" method="post">
+                <div class="container">
+                    <label for="url"><b>URL</b></label>
+                    <input type="url" placeholder="Enter URL" name="url" required>
+                    <button type="submit">Shorten</button>
+                </div>
+            </form>
+        </div>
+
+        {% if urls %}
+        <table>
+            <tr>
+                <th>URL</th>
+                <th>Short Url</th>
+                <th>Visits</th>
+                <th>Action</th>
+            </tr>
+            {% for url in urls %}
+            <tr>
+                <td> {{ url.url }} </td>
+                <td> {{ url.short_url }} </td>
+                <td> {{url.visits | length}} </td>
+                <td><a href={{ url_for('delete', url_id=url.id) }} class="delete">Delete</a></td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+        </table>
+        {% endblock %}
+    </div>
 </body>
+
 </html>
