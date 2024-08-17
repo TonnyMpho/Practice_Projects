@@ -1,3 +1,1 @@
-# CodeClauseInternship
-
-CodeClause Intership Projects Repo
+Practice Projects
